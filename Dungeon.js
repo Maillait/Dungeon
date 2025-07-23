@@ -82,7 +82,6 @@ function drawDungeon() {
       }
     }
   }
-  draw();
 }
 
 function draw() {
@@ -115,3 +114,4 @@ function draw() {
 }
 
 drawDungeon();
+draw();
