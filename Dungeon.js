@@ -82,6 +82,7 @@ function drawDungeon() {
       }
     }
   }
+  draw();
 }
 
 function draw() {
