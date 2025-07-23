@@ -8,7 +8,7 @@ let enemyy = [];
 const plot = document.getElementById("plot");
 const ctx = plot.getContext("2d");
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 5; i++) {
   random.push(Math.floor(Math.random() * 3));
 }
 
@@ -96,7 +96,7 @@ function draw() {
       ) {
         if (
           Math.round(
-            (Math.sin(y + Py) + Math.sin(x + Px) + random[(x + Px + Py + y) % 20] +
+            (Math.sin(y + Py) + Math.sin(x + Px) + random[Math.sin(y + Py) + Math.sin(x + Px) + 2] +
               2) /
               6
           )
