@@ -13,10 +13,10 @@ for (let i = 0; i < 20; i++) {
 }
 
 document.addEventListener("keydown", (event) => {
-  if (event.key == "ArrowUp" && !screen[(Py - 1) * 200 + Px]) Py--;
-  if (event.key == "ArrowDown" && !screen[(Py + 1) * 200 + Px]) Py++;
-  if (event.key == "ArrowRight" && !screen[Py * 200 + Px + 1]) Px++;
-  if (event.key == "ArrowLeft" && !screen[Py * 200 + Px - 1]) Px--;
+  if (event.key == "ArrowUp" && !screen[((y - 1 + 200) % 200) * 200 + x]) Py--;
+  if (event.key == "ArrowDown" && !screen[((y + 1) % 200) * 200 + x]) Py++;
+  if (event.key == "ArrowRight" && screen[y * 200 + ((x + 1) % 200)]) Px++;
+  if (event.key == "ArrowLeft" && !screen[y * 200 + ((x - 1 + 200) % 200)]) Px--;
   if (Py <= 0) Py += 200;
   if (Px <= 0) Px += 200;
   if (Py > 200) Py -= 200;
