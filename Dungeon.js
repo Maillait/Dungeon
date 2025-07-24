@@ -96,7 +96,7 @@ function draw() {
         if (
           Math.round(
             (Math.sin(y + Py) + Math.sin(x + Px) + random[Math.floor(Math.sin(y + Py) + Math.sin(x + Px) + 2)] +
-              3.2) /
+              2.9) /
               6
           )
         ) {
