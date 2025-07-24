@@ -15,6 +15,7 @@ let a1 = 0;
 let a2 = 0;
 
 let error = 0;
+let spawn = 20;
 
 drawDungeon();
 let tick = setInterval(step, 100);
@@ -42,50 +43,98 @@ document.addEventListener("keyup", (event) => {
 });
 
 function step() {
+function change() {
+    for (let x = 0; x < 25; x++) {
+      for (let y = 0; y < 25; y++) {
+        enemy[y * 25 + x] = tenemy[y * 25 + x];
+      }
+    }
+  }
   while (error == 1) {
     error = 0;
     drawDungeon();
   }
   let tenemy = [];
-  let change = 0;
-  if (u && !screen[((Py - 1 + 200) % 200) * 200 + Px]) { Py--;
-    change++;
+  if (u && !screen[((Py - 1 + 200) % 200) * 200 + Px]) {
+    Py--;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (y) {
           tenemy[y * 25 + x] = enemy[(y - 1) * 25 + x];
+        } else if (
+          y == 0 &&
+          Math.random() < 1 / spawn &&
+          !screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+        ) {
+          tenemy[y * 25 + x] = 1;
         } else {
           tenemy[y * 25 + x] = 0;
         }
       }
     }
+    change();
   }
   if (d && !screen[((Py + 1) % 200) * 200 + Px]) {
     Py++;
-    change++;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (y < 24) {
           tenemy[y * 25 + x] = enemy[(y + 1) * 25 + x];
+        } else if (
+          y == 24 &&
+          Math.random() < 1 / spawn &&
+          !screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+        ) {
+          tenemy[y * 25 + x] = 1;
         } else {
           tenemy[y * 25 + x] = 0;
         }
       }
     }
+    change();
   }
-  if (r && !screen[Py * 200 + ((Px + 1) % 200)]) Px++;
-  if (l && !screen[Py * 200 + ((Px - 1 + 200) % 200)]) Px--;
+  if (r && !screen[Py * 200 + ((Px + 1) % 200)]) {
+    Px++;
+    for (let x = 0; x < 25; x++) {
+      for (let y = 0; y < 25; y++) {
+        if (x < 24) {
+          tenemy[y * 25 + x] = enemy[y * 25 + x + 1];
+        } else if (
+          x == 24 &&
+          Math.random() < 1 / spawn &&
+          !screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+        ) {
+          tenemy[y * 25 + x] = 1;
+        } else {
+          tenemy[y * 25 + x] = 0;
+        }
+      }
+    }
+    change();
+  }
+  if (l && !screen[Py * 200 + ((Px - 1 + 200) % 200)]) {
+    Px--;
+    for (let x = 0; x < 25; x++) {
+      for (let y = 0; y < 25; y++) {
+        if (x) {
+          tenemy[y * 25 + x] = enemy[y * 25 + x - 1];
+        } else if (
+          x == 0 &&
+          Math.random() < 1 / spawn &&
+          !screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+        ) {
+          tenemy[y * 25 + x] = 1;
+        } else {
+          tenemy[y * 25 + x] = 0;
+        }
+      }
+    }
+    change();
+  }
   if (Py < 0) Py += 200;
   if (Px < 0) Px += 200;
   if (Py >= 200) Py -= 200;
   if (Px >= 200) Px -= 200;
-  if (change) {
-  for (let x = 0; x < 25; x++) {
-    for (let y = 0; y < 25; y++) {
-      enemy[y * 25 + x] = tenemy[y * 25 + x];
-    }
-  }
-}
   draw();
 }
 
@@ -157,15 +206,7 @@ function drawDungeon() {
   for (let x = 0; x < 25; x++) {
     for (let y = 0; y < 25; y++) {
       attack[y * 25 + x] = 0;
-      if (
-        (y == 0 || y == 24 || x == 0 || x == 24) &&
-        Math.random() < 1 &&
-        !screen[(y + Py - 10) * 200 + (x + Px - 10)]
-      ) {
-        enemy[y * 25 + x] = 1;
-      } else {
-        enemy[y * 25 + x] = 0;
-      }
+      enemy[y * 25 + x] = 0;
     }
   }
 }
