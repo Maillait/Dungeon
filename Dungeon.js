@@ -4,6 +4,7 @@ let screen = [];
 let random = [];
 let enemy = [];
 let attack = []; // > 3? punch   > 7? basic gun   > 15? basic magic...
+let enemies = 0;
 const plot = document.getElementById("plot");
 const ctx = plot.getContext("2d");
 
@@ -19,7 +20,11 @@ let spawn = 40;
 let artifacts = 0;
 let health = 100;
 let upgrade = 0;
-let explored = [];
+let dir = 0;
+
+let hp = 20;
+let maxhp = 20;
+let free = 0;
 
 drawDungeon();
 let tick = setInterval(step, 100);
@@ -47,12 +52,29 @@ document.addEventListener("keyup", (event) => {
 });
 
 function step() {
+  let tu = 0;
+  let td = 0;
+  let tr = 0;
+  let tl = 0;
   function change() {
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         enemy[y * 25 + x] = tenemy[y * 25 + x];
       }
     }
+  }
+  function losthp() {
+    ctx.beginPath();
+    ctx.fillStyle = "#000000ff";
+    ctx.fillRect(422, 250, 200, 30);
+    ctx.fillRect(400, 280, 200, 30);
+    ctx.fillStyle = "#11d100ff";
+    ctx.fillText("Hp :" + hp, 430, 280);
+    ctx.fillStyle = "#9bb1c48f";
+    ctx.fillRect(408, 296, 184, 14);
+    ctx.fillStyle = "#d10000ff";
+    ctx.fillRect(410, 298, (180 * hp) / maxhp, 10);
+    ctx.closePath();
   }
   while (error == 1) {
     error = 0;
@@ -62,6 +84,7 @@ function step() {
   ctx.beginPath();
   if (u && 1 != screen[((Py - 1 + 200) % 200) * 200 + Px]) {
     Py--;
+    tu++;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (y) {
@@ -69,9 +92,21 @@ function step() {
         } else if (
           y == 0 &&
           Math.random() < 1 / spawn &&
-          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)] &&
+          enemies < 10
         ) {
-          tenemy[y * 25 + x] = 1;
+          enemies++;
+          if (Math.random() < 1 / 4) {
+            tenemy[y * 25 + x] = 1;
+          } else if (Math.random() < 1 / 6) {
+            tenemy[y * 25 + x] = 3;
+          } else if (Math.random() < 3 / 5) {
+            tenemy[y * 25 + x] = 14;
+          } else if (Math.random() < 1 / 2) {
+            tenemy[y * 25 + x] = 54;
+          } else {
+            tenemy[y * 25 + x] = 95;
+          }
         } else {
           tenemy[y * 25 + x] = 0;
         }
@@ -102,6 +137,7 @@ function step() {
   }
   if (d && 1 != screen[((Py + 1) % 200) * 200 + Px]) {
     Py++;
+    td++;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (y < 24) {
@@ -109,9 +145,21 @@ function step() {
         } else if (
           y == 24 &&
           Math.random() < 1 / spawn &&
-          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)] &&
+          enemies < 10
         ) {
-          tenemy[y * 25 + x] = 1;
+          enemies++;
+          if (Math.random() < 1 / 4) {
+            tenemy[y * 25 + x] = 1;
+          } else if (Math.random() < 1 / 6) {
+            tenemy[y * 25 + x] = 3;
+          } else if (Math.random() < 3 / 5) {
+            tenemy[y * 25 + x] = 14;
+          } else if (Math.random() < 1 / 2) {
+            tenemy[y * 25 + x] = 54;
+          } else {
+            tenemy[y * 25 + x] = 95;
+          }
         } else {
           tenemy[y * 25 + x] = 0;
         }
@@ -142,6 +190,7 @@ function step() {
   }
   if (r && 1 != screen[Py * 200 + ((Px + 1) % 200)]) {
     Px++;
+    tr++;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (x < 24) {
@@ -149,9 +198,21 @@ function step() {
         } else if (
           x == 24 &&
           Math.random() < 1 / spawn &&
-          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)] &&
+          enemies < 10
         ) {
-          tenemy[y * 25 + x] = 1;
+          enemies++;
+          if (Math.random() < 1 / 4) {
+            tenemy[y * 25 + x] = 1;
+          } else if (Math.random() < 1 / 6) {
+            tenemy[y * 25 + x] = 3;
+          } else if (Math.random() < 3 / 5) {
+            tenemy[y * 25 + x] = 14;
+          } else if (Math.random() < 1 / 2) {
+            tenemy[y * 25 + x] = 54;
+          } else {
+            tenemy[y * 25 + x] = 95;
+          }
         } else {
           tenemy[y * 25 + x] = 0;
         }
@@ -182,6 +243,7 @@ function step() {
   }
   if (l && 1 != screen[Py * 200 + ((Px - 1 + 200) % 200)]) {
     Px--;
+    tl++;
     for (let x = 0; x < 25; x++) {
       for (let y = 0; y < 25; y++) {
         if (x) {
@@ -189,9 +251,21 @@ function step() {
         } else if (
           x == 0 &&
           Math.random() < 1 / spawn &&
-          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)]
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)] &&
+          enemies < 10
         ) {
-          tenemy[y * 25 + x] = 1;
+          enemies++;
+          if (Math.random() < 1 / 4) {
+            tenemy[y * 25 + x] = 1;
+          } else if (Math.random() < 1 / 6) {
+            tenemy[y * 25 + x] = 3;
+          } else if (Math.random() < 3 / 5) {
+            tenemy[y * 25 + x] = 14;
+          } else if (Math.random() < 1 / 2) {
+            tenemy[y * 25 + x] = 54;
+          } else {
+            tenemy[y * 25 + x] = 95;
+          }
         } else {
           tenemy[y * 25 + x] = 0;
         }
@@ -220,7 +294,23 @@ function step() {
     }
     change();
   }
-
+  if (tu && tl) {
+    dir = 7;
+  } else if (tu && tr) {
+    dir = 4;
+  } else if (td && tl) {
+    dir = 6;
+  } else if (td && tr) {
+    dir = 5;
+  } else if (tu) {
+    dir = 0;
+  } else if (tl) {
+    dir = 3;
+  } else if (td) {
+    dir = 2;
+  } else if (tr) {
+    dir = 1;
+  }
   if (Py < 0) Py += 200;
   if (Px < 0) Px += 200;
   if (Py >= 200) Py -= 200;
@@ -229,11 +319,117 @@ function step() {
     screen[Py * 200 + Px] = 0;
     artifacts++;
     ctx.beginPath();
-    ctx.fillStyle = "#695b4dff";
-    ctx.fillRect(422, 200, 200, 60);
-    ctx.fillStyle = "black";
-    ctx.fillText("Gems : " + artifacts, 430, 240);
+    ctx.fillStyle = "#000000ff";
+    ctx.fillRect(422, 210, 200, 50);
+    ctx.fillStyle = "#11d100ff";
+    ctx.fillText("Gems:" + artifacts, 430, 240);
     ctx.closePath();
+  }
+  if (tu + td + tr + tl) {
+    for (let i = 0; i < 625; i++) {
+      enemy[i] = tenemy[i];
+      tenemy[i] = 0;
+      if (enemy[i]) enemies++;
+    }
+  }
+  for (let y = 0; y < 25; y++) {
+    for (let x = 0; x < 25; x++) {
+      if (enemy[y * 25 + x] == 1) {
+        if (
+          x > 13 &&
+          y < 13 &&
+          1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)]
+        )
+          if (tenemy[(y + 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y + 1) * 25 + x - 1] = 2;
+        else if (
+          x < 13 &&
+          y > 13 &&
+          1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)]
+        )
+          if (tenemy[(y - 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y - 1) * 25 + x + 1] = 2;
+        else if (
+          x < 13 &&
+          y < 13 &&
+          1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)]
+        )
+          if (tenemy[(y + 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y + 1) * 25 + x + 1] = 2;
+        else if (
+          x > 13 &&
+          y > 13 &&
+          1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)]
+        )
+          if (tenemy[(y - 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y - 1) * 25 + x - 1] = 2;
+        else if (
+          x > 13 &&
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)]
+        )
+          if (tenemy[y * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[y * 25 + x - 1] = 2;
+        else if (
+          x < 13 &&
+          1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)]
+        )
+          if (tenemy[y * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[y * 25 + x + 1] = 2;
+        else if (
+          y < 13 &&
+          1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)]
+        )
+          if (tenemy[(y + 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y + 1) * 25 + x] = 2;
+        else if (
+          y > 13 &&
+          1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)]
+        )
+          if (tenemy[(y - 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
+          else tenemy[(y - 1) * 25 + x] = 2;
+        else if (y == 13 && x == 13) {
+          hp -= 1;
+          losthp();
+        } else {
+          tenemy[y * 25 + x] = 96;
+        }
+      } else if (enemy[y * 25 + x] == 2) {
+        if (y == 13 && x == 13) {
+          hp -= 1;
+          losthp();
+        } else {
+          tenemy[y * 25 + x] = 1;
+        }
+      } else if (enemy[y * 25 + x] == 3) {
+        if (x > 13 && y < 13) tenemy[(y + 1) * 25 + x - 1] = 4;
+        else if (x < 13 && y > 13) tenemy[(y - 1) * 25 + x + 1] = 4;
+        else if (x < 13 && y < 13) tenemy[(y + 1) * 25 + x + 1] = 4;
+        else if (x > 13 && y > 13) tenemy[(y - 1) * 25 + x - 1] = 4;
+        else if (x > 13) tenemy[y * 25 + x - 1] = 4;
+        else if (x < 13) tenemy[y * 25 + x + 1] = 4;
+        else if (y < 13) tenemy[(y + 1) * 25 + x] = 4;
+        else if (y > 13) tenemy[(y - 1) * 25 + x] = 4;
+        else if (y == 13 && x == 13) {
+          hp -= 1;
+          losthp();
+        }
+      } else if (enemy[y * 25 + x] == 4) {
+        if (y == 13 && x == 13) {
+          hp -= 1;
+          losthp();
+        } else {
+          tenemy[y * 25 + x] = 3;
+        }
+      } else if (enemy[y * 25 + x] == 96) {
+        tenemy[y * 25 + x] = 0;
+      }
+    }
+  }
+  enemies = 0;
+  for (let i = 0; i < 625; i++) {
+    enemy[i] = tenemy[i];
+    tenemy[i] = 0;
+    if (enemy[i]) enemies++;
   }
   draw();
 }
@@ -318,18 +514,28 @@ function drawDungeon() {
   }
   ctx.beginPath();
   ctx.imageSmoothingEnabled = false;
-  ctx.font = "bold 26px Papyrus";
-  ctx.fillStyle = "#695b4dff";
-  ctx.fillRect(400, 200, 200, 400);
+  ctx.font = "bold 26px Courier New";
   ctx.fillStyle = "#000000ff";
-  ctx.fillRect(400, 0, 200, 200);
+  ctx.fillRect(400, 0, 200, 400);
   ctx.fillRect(400, 0, 1, 400);
-  ctx.fillText("Gems : " + artifacts, 430, 240);
-  ctx.fillRect(408, 226, 14, 14);
-  ctx.fillStyle = "#11d100ff";
-  ctx.fillRect(410, 228, 10, 10);
   ctx.fillStyle = "#9bb1c48f";
+  ctx.fillRect(408, 226, 14, 14);
+  ctx.fillRect(408, 266, 14, 14);
+  ctx.fillRect(408, 326, 14, 14);
+  ctx.fillRect(408, 296, 184, 14);
+  ctx.fillRect(408, 356, 184, 14);
   ctx.fillRect(0, 0, 400, 400);
+  ctx.fillRect(400, 200, 400, 2);
+  ctx.fillStyle = "#11d100ff";
+  ctx.fillText("Gems:" + artifacts, 430, 240);
+  ctx.fillText("Hp  :" + hp, 430, 280);
+  ctx.fillText("Free:" + free, 430, 340);
+  ctx.fillRect(410, 228, 10, 10);
+  ctx.fillStyle = "#d10000ff";
+  ctx.fillRect(410, 268, 10, 10);
+  ctx.fillRect(410, 298, 180, 10);
+  ctx.fillStyle = "#c2af09ff";
+  ctx.fillRect(410, 328, 10, 10);
   ctx.fillStyle = "rgba(24, 112, 43, 1)";
   for (var y = 0; y < 20; y++) {
     for (var x = 0; x < 20; x++) {
@@ -344,29 +550,174 @@ function draw() {
   for (var y = 0; y < 20; y++) {
     for (var x = 0; x < 20; x++) {
       if (y == 10 && x == 10) {
-        ctx.fillStyle = "#a10b00ff";
+        ctx.drawImage(
+          document.getElementById("sprite"),
+          20 * dir,
+          20,
+          20,
+          20,
+          20 * x,
+          20 * y,
+          20,
+          20
+        );
       } else if (
         screen[((y + Py + 190) % 200) * 200 + ((x + Px + 190) % 200)] == 2
       ) {
-        ctx.fillStyle = "#11d100ff";
+        ctx.drawImage(
+          document.getElementById("sprite"),
+          80,
+          0,
+          20,
+          20,
+          20 * x,
+          20 * y,
+          20,
+          20
+        );
       } else if (enemy[(y + 3) * 25 + (x + 3)]) {
-        ctx.fillStyle = "#c2af09ff";
+        if (enemy[(y + 3) * 25 + (x + 3)] < 3) {
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            0,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+        } else if (enemy[(y + 3) * 25 + (x + 3)] < 5) {
+          if (screen[((y + Py + 190) % 200) * 200 + ((x + Px + 190) % 200)] == 0)
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            60,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+          else {
+            ctx.drawImage(
+            document.getElementById("sprite"),
+            100,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+          }
+        } else if (enemy[(y + 3) * 25 + (x + 3)] < 35) {
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            20,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+        } else if (enemy[(y + 3) * 25 + (x + 3)] < 95) {
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            40,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+        } else if (enemy[(y + 3) * 25 + (x + 3)] < 96) {
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            80,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+        } else if (enemy[(y + 3) * 25 + (x + 3)] < 97) {
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            120,
+            40,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
+        }
       } else if (
         1 == screen[((y + Py + 190) % 200) * 200 + ((x + Px + 190) % 200)]
       ) {
         if (Math.round(random[((x + Px) % 10) + ((Py + y) % 10) * 10])) {
-          ctx.fillStyle = "#444444ff";
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            0,
+            0,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
         } else {
-          ctx.fillStyle = "#313830ff";
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            20,
+            0,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
         }
       } else {
         if (Math.round(random[((x + Px) % 10) + ((Py + y) % 10) * 10])) {
-          ctx.fillStyle = "#898b8aff";
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            40,
+            0,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
         } else {
-          ctx.fillStyle = "#869695ff";
+          ctx.drawImage(
+            document.getElementById("sprite"),
+            60,
+            0,
+            20,
+            20,
+            20 * x,
+            20 * y,
+            20,
+            20
+          );
         }
       }
-      ctx.fillRect(20 * x, 20 * y, 20, 20);
     }
   }
   ctx.closePath();
