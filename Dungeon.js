@@ -38,7 +38,7 @@ addEventListener("mousedown", (event) => {
       dif = 0;
       level();
     } else if (mx > 15 && my > 110 && mx < 115 && my < 160) {
-      if (artifacts >= Math.floor(maxhp / 10) + 3 && maxhp < 100) {
+      if (artifacts >= Math.floor(maxhp / 10) + 3 && maxhp < 180) {
         artifacts -= Math.floor(maxhp / 10) + 3;
         maxhp += 5;
         ctx.beginPath();
@@ -47,7 +47,7 @@ addEventListener("mousedown", (event) => {
         ctx.fillStyle = "#98a7a3ff";
         ctx.fillRect(15, 160, 100, 25);
         ctx.fillStyle = "#000000ff";
-        if (maxhp == 100) ctx.fillText("Max", 25, 140);
+        if (maxhp == 180) ctx.fillText("Max", 25, 140);
         else ctx.fillText("+hp $" + (Math.floor(maxhp / 10) + 3), 25, 140);
         ctx.fillText("hp : " + maxhp, 25, 180);
         ctx.closePath();
@@ -74,7 +74,7 @@ addEventListener("mousedown", (event) => {
         alert("too pricy or sold out");
       }
     } else if (mx > 244 && my > 110 && mx < 344 && my < 160) {
-      if (artifacts >= 2 * upGun + 5 && upGun < 10) {
+      if (artifacts >= 2 * upGun + 5 && upGun < 12) {
         artifacts -= 2 * upGun + 5;
         upGun++;
         ctx.beginPath();
@@ -83,7 +83,7 @@ addEventListener("mousedown", (event) => {
         ctx.fillStyle = "#98a7a3ff";
         ctx.fillRect(244, 160, 100, 25);
         ctx.fillStyle = "#000000ff";
-        if (upGun == 10) ctx.fillText("Max", 255, 140);
+        if (upGun == 12) ctx.fillText("Max", 255, 140);
         else ctx.fillText("Gun $" + (2 * upGun + 5), 255, 140);
         ctx.fillText("lvl: " + upGun, 260, 180);
         ctx.closePath();
@@ -92,8 +92,8 @@ addEventListener("mousedown", (event) => {
         alert("too pricy or sold out");
       }
     } else if (mx > 20 && my > 230 && mx < 120 && my < 280) {
-      if (artifacts >= 3 * upSpell + 10 && upSpell < 5) {
-        artifacts -= 3 * upSpell + 10;
+      if (artifacts >= upSpell + 10 && upSpell < 12) {
+        artifacts -= upSpell + 10;
         upSpell++;
         ctx.beginPath();
         ctx.fillStyle = "#7a736fff";
@@ -101,8 +101,8 @@ addEventListener("mousedown", (event) => {
         ctx.fillStyle = "#98a7a3ff";
         ctx.fillRect(20, 280, 100, 25);
         ctx.fillStyle = "#000000ff";
-        if (upSpell == 5) ctx.fillText("Max", 25, 260);
-        else ctx.fillText("Spel$" + (3 * upSpell + 10), 25, 260);
+        if (upSpell == 12) ctx.fillText("Max", 25, 260);
+        else ctx.fillText("Spel$" + (upSpell + 10), 25, 260);
         ctx.fillText("lvl: " + upSpell, 30, 300);
         ctx.closePath();
         sold();
@@ -110,7 +110,7 @@ addEventListener("mousedown", (event) => {
         alert("too pricy or sold out");
       }
     } else if (mx > 132 && my > 230 && mx < 232 && my < 280) {
-      if (artifacts >= 4 * upHeal + 5 && upHeal < 5) {
+      if (artifacts >= 4 * upHeal + 5 && upHeal < 10) {
         artifacts -= 4 * upHeal + 5;
         upHeal++;
         ctx.beginPath();
@@ -119,7 +119,7 @@ addEventListener("mousedown", (event) => {
         ctx.fillStyle = "#98a7a3ff";
         ctx.fillRect(132, 280, 100, 25);
         ctx.fillStyle = "#000000ff";
-        if (upHeal == 5) ctx.fillText("Max", 140, 260);
+        if (upHeal == 10) ctx.fillText("Max", 140, 260);
         else ctx.fillText("Heal$" + (4 * upHeal + 5), 140, 260);
         ctx.fillText("lvl: " + upHeal, 145, 300);
         ctx.closePath();
@@ -196,13 +196,13 @@ addEventListener("keypress", (event) => {
         else if (attack1 == 1) ctx.fillText("Gun", 415, 180);
         else if (attack1 == 2) ctx.fillText("Spell", 415, 180);
         else if (attack1 == 3) ctx.fillText("Heal", 415, 180);
-        else ctx.fillText("Sheild", 415, 180);
+        else ctx.fillText("Block", 415, 180);
       } else {
         if (attack2 == 0) ctx.fillText("Chop", 415, 300);
         else if (attack2 == 1) ctx.fillText("Gun", 415, 300);
         else if (attack2 == 2) ctx.fillText("Spell", 415, 300);
         else if (attack2 == 3) ctx.fillText("Heal", 415, 300);
-        else ctx.fillText("Sheild", 415, 300);
+        else ctx.fillText("Block", 415, 300);
         ctx.closePath();
       }
       select = 0;
@@ -263,15 +263,15 @@ function shop() {
   ctx.font = "bold 20px Georgia";
   ctx.fillText("Play", 540, 75);
   ctx.fillText("Exit", 540, 35);
-  if (maxhp == 100) ctx.fillText("Max", 25, 140);
+  if (maxhp == 180) ctx.fillText("Max", 25, 140);
   else ctx.fillText("+hp $" + (Math.floor(maxhp / 10) + 3), 25, 140);
   if (upPunch == 10) ctx.fillText("Max", 140, 140);
   else ctx.fillText("Chop$" + (2 * upPunch + 3), 140, 140);
-  if (upGun == 10) ctx.fillText("Max", 255, 140);
+  if (upGun == 12) ctx.fillText("Max", 255, 140);
   else ctx.fillText("Gun $" + (2 * upGun + 5), 255, 140);
-  if (upSpell == 5) ctx.fillText("Max", 25, 260);
-  else ctx.fillText("Spel$" + (3 * upSpell + 10), 25, 260);
-  if (upHeal == 5) ctx.fillText("Max", 140, 260);
+  if (upSpell == 12) ctx.fillText("Max", 25, 260);
+  else ctx.fillText("Spel$" + (upSpell + 10), 25, 260);
+  if (upHeal == 10) ctx.fillText("Max", 140, 260);
   else ctx.fillText("Heal$" + (4 * upHeal + 5), 140, 260);
   if (upSheild) ctx.fillText("Max", 255, 260);
   else ctx.fillText("Bloc$" + 20, 255, 260);
@@ -305,6 +305,20 @@ function shop() {
 }
 
 function drawMenu() {
+  maxhp = 20;
+  attack1 = 0;
+  cool1 = 0;
+  attack2 = 1;
+  cool2 = 0;
+  artifacts = 0;
+  inmenu = 0;
+  dif = 0;
+  hp = 20;
+  upPunch = 1;
+  upGun = 1;
+  upSpell = 0;
+  upHeal = 0;
+  upSheild = 0;
   ctx.beginPath();
   ctx.imageSmoothingEnabled = false;
   for (let y = 0; y < 20; y++) {
@@ -339,6 +353,18 @@ function drawMenu() {
   inmenu = 1;
 }
 
+function victory() {
+  alert(
+    "You got to the end of the beta!!\nkeep on playing for as long as you wish...\n(all abilities are maxed out)"
+  );
+  upBlock = 1;
+  maxhp = 180;
+  upGun = 12;
+  upPunch = 10;
+  upSpell = 12;
+  upHeal = 10;
+}
+
 function level() {
   let Px = 0;
   let Py = 0;
@@ -356,10 +382,12 @@ function level() {
   let a2 = 0;
 
   let error = 0;
-  let spawn = 40;
+  let spawn = 80;
   let dir = 0;
 
+  let block = 0;
   let free = 0;
+  let boss = 0;
 
   drawDungeon();
   let tick = setInterval(step, 100);
@@ -402,6 +430,18 @@ function level() {
       if (hp <= 0) {
         clearInterval(tick);
         hp = 0;
+        artifacts += free;
+        if (boss) {
+          alert(
+            "You got to the end of the beta!!\nkeep on playing for as long as you wish...\n(all abilities are maxed out)"
+          );
+          upSheild = 1;
+          maxhp = 180;
+          upGun = 12;
+          upPunch = 10;
+          upSpell = 12;
+          upHeal = 10;
+        }
         shop();
       } else {
         ctx.beginPath();
@@ -425,13 +465,19 @@ function level() {
     let tattack = [];
     cool1--;
     cool2--;
-    if (attack[13 * 25 + 13] > 14) {
-      hp -= 5 + dif * 10;
-      losthp();
-    } else if (attack[13 * 25 + 13] > 0) {
-      hp -= 5 + dif * 5;
-      losthp();
+    if (!block) {
+      if (attack[13 * 25 + 13] > 14) {
+        hp -= 5 + dif * 10;
+        losthp();
+      } else if (attack[13 * 25 + 13] > 9) {
+        hp -= 3 + dif * 3;
+        losthp();
+      } else if (attack[13 * 25 + 13] > 1) {
+        hp -= 2 + dif * 2;
+        losthp();
+      }
     }
+    block = 0;
     if (hp) {
       ctx.beginPath();
       if (!(a1 + a2)) {
@@ -450,19 +496,17 @@ function level() {
                   screen[
                     ((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)
                   ] &&
-                enemies < 10 + dif * 5
+                enemies < 5 + dif * 5
               ) {
                 enemies++;
-                if (Math.random() < 1 / 4) {
-                  tenemy[y * 25 + x] = 1;
-                } else if (Math.random() < 1 / 6) {
-                  tenemy[y * 25 + x] = 3;
-                } else if (Math.random() < 3 / 5) {
-                  tenemy[y * 25 + x] = 14 + dif * 10;
+                if (Math.random() < 1 / 5) {
+                  tenemy[y * 25 + x] = 176 + dif * 5;
                 } else if (Math.random() < 1 / 2) {
-                  tenemy[y * 25 + x] = 54 + dif * 20;
-                } else {
                   tenemy[y * 25 + x] = 95;
+                } else if (Math.random() < 1 / 2) {
+                  tenemy[y * 25 + x] = 14 + dif * 10;
+                } else {
+                  tenemy[y * 25 + x] = 54 + dif * 20;
                 }
               } else {
                 tenemy[y * 25 + x] = 0;
@@ -511,16 +555,14 @@ function level() {
                 enemies < 10 + dif * 5
               ) {
                 enemies++;
-                if (Math.random() < 1 / 4) {
-                  tenemy[y * 25 + x] = 1;
-                } else if (Math.random() < 1 / 6) {
-                  tenemy[y * 25 + x] = 3;
-                } else if (Math.random() < 3 / 5) {
-                  tenemy[y * 25 + x] = 14 + dif * 10;
+                if (Math.random() < 1 / 5) {
+                  tenemy[y * 25 + x] = 176 + dif * 5;
                 } else if (Math.random() < 1 / 2) {
-                  tenemy[y * 25 + x] = 54 + dif * 20;
-                } else {
                   tenemy[y * 25 + x] = 95;
+                } else if (Math.random() < 1 / 2) {
+                  tenemy[y * 25 + x] = 14 + dif * 10;
+                } else {
+                  tenemy[y * 25 + x] = 54 + dif * 20;
                 }
               } else {
                 tenemy[y * 25 + x] = 0;
@@ -569,16 +611,14 @@ function level() {
                 enemies < 10 + dif * 5
               ) {
                 enemies++;
-                if (Math.random() < 1 / 4) {
-                  tenemy[y * 25 + x] = 1;
-                } else if (Math.random() < 1 / 6) {
-                  tenemy[y * 25 + x] = 3;
-                } else if (Math.random() < 3 / 5) {
-                  tenemy[y * 25 + x] = 14 + dif * 10;
+                if (Math.random() < 1 / 5) {
+                  tenemy[y * 25 + x] = 176 + dif * 5;
                 } else if (Math.random() < 1 / 2) {
-                  tenemy[y * 25 + x] = 54 + dif * 20;
-                } else {
                   tenemy[y * 25 + x] = 95;
+                } else if (Math.random() < 1 / 2) {
+                  tenemy[y * 25 + x] = 14 + dif * 10;
+                } else {
+                  tenemy[y * 25 + x] = 54 + dif * 20;
                 }
               } else {
                 tenemy[y * 25 + x] = 0;
@@ -627,16 +667,14 @@ function level() {
                 enemies < 10 + dif * 5
               ) {
                 enemies++;
-                if (Math.random() < 1 / 4) {
-                  tenemy[y * 25 + x] = 1;
-                } else if (Math.random() < 1 / 6) {
-                  tenemy[y * 25 + x] = 3;
-                } else if (Math.random() < 3 / 5) {
-                  tenemy[y * 25 + x] = 14 + dif * 10;
+                if (Math.random() < 1 / 5) {
+                  tenemy[y * 25 + x] = 176 + dif * 5;
                 } else if (Math.random() < 1 / 2) {
-                  tenemy[y * 25 + x] = 54 + dif * 20;
-                } else {
                   tenemy[y * 25 + x] = 95;
+                } else if (Math.random() < 1 / 2) {
+                  tenemy[y * 25 + x] = 14 + dif * 10;
+                } else {
+                  tenemy[y * 25 + x] = 54 + dif * 20;
                 }
               } else {
                 tenemy[y * 25 + x] = 0;
@@ -709,25 +747,27 @@ function level() {
         if (screen[Py * 200 + Px] == 4) {
           screen[Py * 200 + Px] = 0;
           free++;
-          if (free >= 30) {
-            clearInterval(tick);
-            free = 0;
-            dif++;
-            drawDungeon();
-            tick = setInterval(step, 100);
-            return 0;
+          if (free >= 50) dif = 2;
+          else if (free >= 20) dif = 1;
+          else dif = 0;
+          if (free >= 100) {
+            free = 100;
+            boss = 1;
+            hp = 0;
+            losthp();
+          } else {
+            ctx.beginPath();
+            ctx.fillStyle = "#000000ff";
+            ctx.fillRect(400, 340, 200, 30);
+            ctx.fillRect(422, 310, 200, 50);
+            ctx.fillStyle = "#11d100ff";
+            ctx.fillText("Free:" + free, 430, 340);
+            ctx.fillStyle = "#9bb1c48f";
+            ctx.fillRect(408, 356, 184, 14);
+            ctx.fillStyle = "#c2af09ff";
+            ctx.fillRect(410, 358, 180 * (free / 100), 10);
+            ctx.closePath();
           }
-          ctx.beginPath();
-          ctx.fillStyle = "#000000ff";
-          ctx.fillRect(400, 340, 200, 30);
-          ctx.fillRect(422, 310, 200, 50);
-          ctx.fillStyle = "#11d100ff";
-          ctx.fillText("Free:" + free, 430, 340);
-          ctx.fillStyle = "#9bb1c48f";
-          ctx.fillRect(408, 356, 184, 14);
-          ctx.fillStyle = "#c2af09ff";
-          ctx.fillRect(410, 358, 180 * (free / 100), 10);
-          ctx.closePath();
         }
         if (screen[Py * 200 + Px] == 2) {
           screen[Py * 200 + Px] = 0;
@@ -769,48 +809,250 @@ function level() {
         for (let i = 0; i < 625; i++) {
           tattack[i] = 0;
         }
-        if (a1 && cool1 <= 0 && u + d + r + l) {
-          if (attack1 == 0 && u + d + r + l) {
+        if (a1 && cool1 <= 0 && !block) {
+          if (attack1 == 0 && u + d < 2 && r + l < 2 && u + d + l + r) {
             tattack[(13 - u + d) * 25 + (13 - l + r)] = 1;
             cool1 = 2;
-          } else if (attack1 == 1 && u + d + r + l) {
-            tattack[(13 - u + d) * 25 + (13 - l + r)] = dir + 2;
-            if (upGun < 10) {
-              cool1 = 3;
+          } else if (attack1 == 1 && u + d < 2 && r + l < 2 && u + d + l + r) {
+            if (upGun < 6) {
+              cool2 = 3;
             }
-          } else if (attack1 == 2 && u + d + r + l) {
+            tattack[(13 + d - u) * 25 + (13 + r - l)] = dir + 2;
+            if (upGun >= 12) {
+              if (u + d == 1 && l + r == 0) {
+                tattack[(13 + d - u) * 25 + (12 + r - l)] = dir + 2;
+                tattack[(13 + d - u) * 25 + (14 + r - l)] = dir + 2;
+              } else if (l + r == 1 && u + d == 0) {
+                tattack[(12 + d - u) * 25 + (13 + r - l)] = dir + 2;
+                tattack[(14 + d - u) * 25 + (13 + r - l)] = dir + 2;
+              } else {
+                tattack[13 * 25 + (13 + r - l)] = dir + 2;
+                tattack[(13 + d - u) * 25 + 13] = dir + 2;
+              }
+            }
+          } else if (attack1 == 2 && u + d < 2 && r + l < 2 && u + d + l + r) {
+            cool1 = 20 - Math.floor(upSpell / 6) * 10;
+            for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
+              if (i == Math.floor(upSpell / 4) || upSpell < 6) {
+                nu = u;
+                nd = d;
+                nl = l;
+                nr = r;
+              } else {
+                if (Math.random() < 1 / 8) {
+                  nu = 1;
+                  nd = 0;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 7) {
+                  nu = 0;
+                  nd = 0;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 6) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 5) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 0;
+                  nr = 0;
+                } else if (Math.random() < 1 / 4) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 0;
+                  nr = 1;
+                } else if (Math.random() < 1 / 3) {
+                  nu = 0;
+                  nd = 0;
+                  nl = 0;
+                  nr = 1;
+                } else if (Math.random() < 1 / 2) {
+                  nu = 1;
+                  nd = 0;
+                  nl = 0;
+                  nr = 1;
+                } else {
+                  nu = 1;
+                  nd = 0;
+                  nl = 0;
+                  nr = 0;
+                }
+              }
+              tattack[
+                (13 + 2 * nd - 2 * nu) * 25 + (13 + 2 * nr - 2 * nl)
+              ] = 14;
+              if (nu + nd == 1 && nl + nr == 0) {
+                tattack[(13 + 3 * nd - 3 * nu) * 25 + (12 + nr - nl)] = 14;
+                tattack[(13 + 3 * nd - 3 * nu) * 25 + (14 + nr - nl)] = 14;
+                tattack[
+                  (13 + 4 * nd - 4 * nu) * 25 + (13 + 4 * nr - 4 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+              } else if (nl + nr == 1 && nu + nd == 0) {
+                tattack[(12 + nd - nu) * 25 + (13 + 3 * nr - 3 * nl)] = 14;
+                tattack[(14 + nd - nu) * 25 + (13 + 3 * nr - 3 * nl)] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 4 * nd - 4 * nu) * 25 + (13 + 4 * nr - 4 * nl)
+                ] = 14;
+              } else {
+                tattack[(13 + nd - nu) * 25 + (13 + 2 * nr - 2 * nl)] = 14;
+                tattack[(13 + 2 * nd - 2 * nu) * 25 + (13 + nr - nl)] = 14;
+                tattack[
+                  (13 + 2 * nd - 2 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 2 * nr - 2 * nl)
+                ] = 14;
+              }
+            }
           } else if (attack1 == 3) {
             hp += upHeal;
             if (hp > maxhp) hp = maxhp;
             cool1 = 50;
             losthp();
-          } else if (attack1 == 4 && u + d + r + l) {
-            attack[(12 - u + d) * 25 + (13 - l + r)] = 0;
-            attack[(13 - u + d) * 25 + (12 - l + r)] = 0;
-            attack[(14 - u + d) * 25 + (13 - l + r)] = 0;
-            attack[(13 - u + d) * 25 + (14 - l + r)] = 0;
+          } else if (attack1 == 4 && upSheild) {
+            attack[13 * 25 + 13] = 0;
+            attack[14 * 25 + 13] = 0;
+            attack[12 * 25 + 13] = 0;
+            attack[13 * 25 + 14] = 0;
+            attack[13 * 25 + 12] = 0;
+            attack[14 * 25 + 14] = 0;
+            attack[12 * 25 + 14] = 0;
+            attack[14 * 25 + 12] = 0;
+            attack[12 * 25 + 12] = 0;
+            if (enemy[13 * 25 + 13] < 5) enemy[13 * 25 + 13] = 0;
+            block = 1;
           }
         }
-        if (a2 && cool2 <= 0) {
-          if (attack2 == 0 && u + d + r + l) {
+        if (a2 && cool2 <= 0 && !block) {
+          if (attack2 == 0 && u + d < 2 && r + l < 2 && u + d + l + r) {
             tattack[(13 - u + d) * 25 + (13 - l + r)] = 1;
-            cool2 = 2;
-          } else if (attack2 == 1 && u + d + r + l) {
-            tattack[(13 - u + d) * 25 + (13 - l + r)] = dir + 2;
-            if (upGun < 10) {
+            cool2 = 20 - Math.floor(upSpell / 6) * 10;
+          } else if (attack2 == 1 && u + d < 2 && r + l < 2 && u + d + l + r) {
+            if (upGun < 6) {
               cool2 = 3;
             }
-          } else if (attack1 == 2 && u + d + r + l) {
-          } else if (attack1 == 3) {
+            tattack[(13 + d - u) * 25 + (13 + r - l)] = dir + 2;
+            if (upGun >= 12) {
+              if (u + d == 1 && l + r == 0) {
+                tattack[(13 + d - u) * 25 + (12 + r - l)] = dir + 2;
+                tattack[(13 + d - u) * 25 + (14 + r - l)] = dir + 2;
+              } else if (l + r == 1 && u + d == 0) {
+                tattack[(12 + d - u) * 25 + (13 + r - l)] = dir + 2;
+                tattack[(14 + d - u) * 25 + (13 + r - l)] = dir + 2;
+              } else {
+                tattack[13 * 25 + (13 + r - l)] = dir + 2;
+                tattack[(13 + d - u) * 25 + 13] = dir + 2;
+              }
+            }
+          } else if (attack2 == 2 && u + d < 2 && r + l < 2 && u + d + l + r) {
+            cool2 = 20;
+            for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
+              if (i == Math.floor(upSpell / 4) || upSpell < 6) {
+                nu = u;
+                nd = d;
+                nl = l;
+                nr = r;
+              } else {
+                if (Math.random() < 1 / 8) {
+                  nu = 1;
+                  nd = 0;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 7) {
+                  nu = 0;
+                  nd = 0;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 6) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 1;
+                  nr = 0;
+                } else if (Math.random() < 1 / 5) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 0;
+                  nr = 0;
+                } else if (Math.random() < 1 / 4) {
+                  nu = 0;
+                  nd = 1;
+                  nl = 0;
+                  nr = 1;
+                } else if (Math.random() < 1 / 3) {
+                  nu = 0;
+                  nd = 0;
+                  nl = 0;
+                  nr = 1;
+                } else if (Math.random() < 1 / 2) {
+                  nu = 1;
+                  nd = 0;
+                  nl = 0;
+                  nr = 1;
+                } else {
+                  nu = 1;
+                  nd = 0;
+                  nl = 0;
+                  nr = 0;
+                }
+              }
+              tattack[
+                (13 + 2 * nd - 2 * nu) * 25 + (13 + 2 * nr - 2 * nl)
+              ] = 14;
+              if (nu + nd == 1 && nl + nr == 0) {
+                tattack[(13 + 3 * nd - 3 * nu) * 25 + (12 + nr - nl)] = 14;
+                tattack[(13 + 3 * nd - 3 * nu) * 25 + (14 + nr - nl)] = 14;
+                tattack[
+                  (13 + 4 * nd - 4 * nu) * 25 + (13 + 4 * nr - 4 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+              } else if (nl + nr == 1 && nu + nd == 0) {
+                tattack[(12 + nd - nu) * 25 + (13 + 3 * nr - 3 * nl)] = 14;
+                tattack[(14 + nd - nu) * 25 + (13 + 3 * nr - 3 * nl)] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 4 * nd - 4 * nu) * 25 + (13 + 4 * nr - 4 * nl)
+                ] = 14;
+              } else {
+                tattack[(13 + nd - nu) * 25 + (13 + 2 * nr - 2 * nl)] = 14;
+                tattack[(13 + 2 * nd - 2 * nu) * 25 + (13 + nr - nl)] = 14;
+                tattack[
+                  (13 + 2 * nd - 2 * nu) * 25 + (13 + 3 * nr - 3 * nl)
+                ] = 14;
+                tattack[
+                  (13 + 3 * nd - 3 * nu) * 25 + (13 + 2 * nr - 2 * nl)
+                ] = 14;
+              }
+            }
+          } else if (attack2 == 3) {
             hp += upHeal;
             if (hp > maxhp) hp = maxhp;
             cool2 = 50;
             losthp();
-          } else if (attack1 == 4 && u + d + r + l) {
-            attack[(12 - u + d) * 25 + (13 - l + r)] = 0;
-            attack[(13 - u + d) * 25 + (12 - l + r)] = 0;
-            attack[(14 - u + d) * 25 + (13 - l + r)] = 0;
-            attack[(13 - u + d) * 25 + (14 - l + r)] = 0;
+          } else if (attack2 == 4 && upSheild) {
+            attack[13 * 25 + 13] = 0;
+            attack[14 * 25 + 13] = 0;
+            attack[12 * 25 + 13] = 0;
+            attack[13 * 25 + 14] = 0;
+            attack[13 * 25 + 12] = 0;
+            attack[14 * 25 + 14] = 0;
+            attack[12 * 25 + 14] = 0;
+            attack[14 * 25 + 12] = 0;
+            attack[12 * 25 + 12] = 0;
+            if (enemy[13 * 25 + 13] < 5) enemy[13 * 25 + 13] = 0;
+            block = 1;
           }
         }
       }
@@ -881,19 +1123,24 @@ function level() {
               x < 25
             ) {
               tattack[(y - 1) * 25 + x - 1] = 9;
-            } else if (attack[y * 25 + x] < 14) {
-            } else if (attack[y * 25 + x] < 19) {
-              tattack[y * 25 + x - 1] = attack[y * 25 + x - 1] - 1;
-              if (tattack[y * 25 + x] == 14) tattack[y * 25 + x - 1] = 0;
             }
+          } else if (attack[y * 25 + x] < 15 && attack[y * 25 + x] > 9) {
+            tattack[y * 25 + x] = attack[y * 25 + x] - 1;
+            if (tattack[y * 25 + x] < 10) tattack[y * 25 + x] = 0;
+          } else if (attack[y * 25 + x] < 19 && attack[y * 25 + x] > 14) {
+            tattack[y * 25 + x - 1] = attack[y * 25 + x - 1] - 1;
+            if (tattack[y * 25 + x] == 14) tattack[y * 25 + x - 1] = 0;
           }
           let damage = 0;
           if (attack[y * 25 + x] == 1) {
             damage = upPunch * 6;
+            if (damage > 60) damage = 60;
           } else if (attack[y * 25 + x] < 10) {
             damage = upGun * 3;
+            if (damage > 45) damage = 45;
           } else if (attack[y * 25 + x] < 15) {
-            damage = upSpell * 2;
+            damage = upSpell * 3;
+            if (damage > 30) damage = 30;
           }
           if (enemy[y * 25 + x] && attack[y * 25 + x]) {
             tattack[y * 25 + x] = 0;
@@ -948,8 +1195,24 @@ function level() {
                     ((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)
                   ] = 2;
               } else enemy[y * 25 + x] -= damage;
-            } else if (enemy[y * 25 + x] > 96) {
+            } else if (enemy[y * 25 + x] < 157) {
               if (enemy[y * 25 + x] - damage < 97) {
+                enemy[y * 25 + x] = 0;
+                if (Math.random() < 3 / 5)
+                  screen[
+                    ((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)
+                  ] = 4;
+                else if (Math.random() < 1 / 2)
+                  screen[
+                    ((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)
+                  ] = 3;
+                else if (Math.random() < 1 / 10)
+                  screen[
+                    ((y + Py + 187) % 200) * 200 + ((x + Px + 187) % 200)
+                  ] = 2;
+              } else enemy[y * 25 + x] -= damage;
+            } else if (enemy[y * 25 + x] < 187) {
+              if (enemy[y * 25 + x] - damage < 157) {
                 enemy[y * 25 + x] = 0;
                 if (Math.random() < 3 / 5)
                   screen[
@@ -966,206 +1229,608 @@ function level() {
               } else enemy[y * 25 + x] -= damage;
             }
           }
-          if (enemy[y * 25 + x] == 1) {
-            if (
-              x > 13 &&
-              y < 13 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
-              if (tenemy[(y + 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x - 1] = 2;
-            else if (
-              x < 13 &&
-              y > 13 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (tenemy[(y - 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x + 1] = 2;
-            else if (
-              x < 13 &&
-              y < 13 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (tenemy[(y + 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x + 1] = 2;
-            else if (
-              x > 13 &&
-              y > 13 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
-              if (tenemy[(y - 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x - 1] = 2;
-            else if (
-              x > 13 &&
-              1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
-              if (tenemy[y * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[y * 25 + x - 1] = 2;
-            else if (
-              x < 13 &&
-              1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (tenemy[y * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[y * 25 + x + 1] = 2;
-            else if (
-              y < 13 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)]
-            )
-              if (tenemy[(y + 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x] = 2;
-            else if (
-              y > 13 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)]
-            )
-              if (tenemy[(y - 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x] = 2;
-            else if (y == 13 && x == 13) {
-              hp -= 1;
-              losthp();
-            } else {
-              tenemy[y * 25 + x] = 96;
-            }
-          } else if (enemy[y * 25 + x] == 2) {
-            if (y == 13 && x == 13) {
-              hp -= 1;
-              losthp();
-            } else {
-              tenemy[y * 25 + x] = 1;
-            }
-          } else if (enemy[y * 25 + x] == 3) {
-            if (x > 13 && y < 13) tenemy[(y + 1) * 25 + x - 1] = 4;
-            else if (x < 13 && y > 13) tenemy[(y - 1) * 25 + x + 1] = 4;
-            else if (x < 13 && y < 13) tenemy[(y + 1) * 25 + x + 1] = 4;
-            else if (x > 13 && y > 13) tenemy[(y - 1) * 25 + x - 1] = 4;
-            else if (x > 13) tenemy[y * 25 + x - 1] = 4;
-            else if (x < 13) tenemy[y * 25 + x + 1] = 4;
-            else if (y < 13) tenemy[(y + 1) * 25 + x] = 4;
-            else if (y > 13) tenemy[(y - 1) * 25 + x] = 4;
-            else if (y == 13 && x == 13) {
-              hp -= 1;
-              losthp();
-            }
-          } else if (enemy[y * 25 + x] == 4) {
-            if (y == 13 && x == 13) {
-              hp -= 1;
-              losthp();
-            } else {
-              tenemy[y * 25 + x] = 3;
-            }
-          } else if (enemy[y * 25 + x] == 95) {
-            if (x < 18 && x > 8 && y < 18 && y > 8) {
-              if (Math.random() < 1 / 4) {
-                tenemy[y * 25 + x] = 1;
-              } else if (Math.random() < 3 / 5) {
-                tenemy[y * 25 + x] = 14 + dif * 10;
+          if (enemy[y * 25 + x] > 0) {
+            if (enemy[y * 25 + x] == 1) {
+              if (
+                x > 13 &&
+                y < 13 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)]
+              )
+                if (tenemy[(y + 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x - 1] = 2;
+              else if (
+                x < 13 &&
+                y > 13 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)]
+              )
+                if (tenemy[(y - 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x + 1] = 2;
+              else if (
+                x < 13 &&
+                y < 13 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)]
+              )
+                if (tenemy[(y + 1) * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x + 1] = 2;
+              else if (
+                x > 13 &&
+                y > 13 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)]
+              )
+                if (tenemy[(y - 1) * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x - 1] = 2;
+              else if (
+                x > 13 &&
+                1 !=
+                  screen[((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)]
+              )
+                if (tenemy[y * 25 + x - 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[y * 25 + x - 1] = 2;
+              else if (
+                x < 13 &&
+                1 !=
+                  screen[((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)]
+              )
+                if (tenemy[y * 25 + x + 1] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[y * 25 + x + 1] = 2;
+              else if (
+                y < 13 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)]
+              )
+                if (tenemy[(y + 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x] = 2;
+              else if (
+                y > 13 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)]
+              )
+                if (tenemy[(y - 1) * 25 + x] == 2) tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x] = 2;
+              else if (y == 13 && x == 13) {
+                hp -= 1;
+                losthp();
               } else {
-                tenemy[y * 25 + x] = 54 + dif * 20;
+                tenemy[y * 25 + x] = 96;
               }
-            } else {
-              tenemy[y * 25 + x] = 95;
-            }
-          } else if (enemy[y * 25 + x] == 96) {
-            tenemy[y * 25 + x] = 0;
-          } else if (enemy[y * 25 + x] < 35) {
-          } else if (enemy[y * 25 + x] < 95) {
-            if (
-              x > 13 &&
-              y < 13 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
+            } else if (enemy[y * 25 + x] == 2) {
+              if (y == 13 && x == 13) {
+                hp -= 1;
+                losthp();
+              } else {
+                tenemy[y * 25 + x] = 1;
+              }
+            } else if (enemy[y * 25 + x] == 3) {
+              if (x > 13 && y < 13) tenemy[(y + 1) * 25 + x - 1] = 4;
+              else if (x < 13 && y > 13) tenemy[(y - 1) * 25 + x + 1] = 4;
+              else if (x < 13 && y < 13) tenemy[(y + 1) * 25 + x + 1] = 4;
+              else if (x > 13 && y > 13) tenemy[(y - 1) * 25 + x - 1] = 4;
+              else if (x > 13) tenemy[y * 25 + x - 1] = 4;
+              else if (x < 13) tenemy[y * 25 + x + 1] = 4;
+              else if (y < 13) tenemy[(y + 1) * 25 + x] = 4;
+              else if (y > 13) tenemy[(y - 1) * 25 + x] = 4;
+              else if (y == 13 && x == 13) {
+                hp -= 1;
+                losthp();
+              }
+            } else if (enemy[y * 25 + x] == 4) {
+              if (y == 13 && x == 13) {
+                hp -= 1;
+                losthp();
+              } else {
+                tenemy[y * 25 + x] = 3;
+              }
+            } else if (enemy[y * 25 + x] == 95) {
+              if (x < 18 && x > 8 && y < 18 && y > 8) {
+                if (Math.random() < 1 / 4) {
+                  tenemy[y * 25 + x] = 1;
+                } else if (Math.random() < 3 / 5) {
+                  tenemy[y * 25 + x] = 14 + dif * 10;
+                } else {
+                  tenemy[y * 25 + x] = 54 + dif * 20;
+                }
+              } else {
+                tenemy[y * 25 + x] = 95;
+              }
+            } else if (enemy[y * 25 + x] == 96) {
+              tenemy[y * 25 + x] = 0;
+            } else if (enemy[y * 25 + x] < 35) {
+              if (Math.sqrt((y - 13) * (y - 13) + (x - 13) * (x - 13)) > 9) {
+                if (
+                  x > 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  y < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x > 14 &&
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  y < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
+                else if (
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
+                else tenemy[y * 25 + x] = enemy[y * 25 + x];
+              } else if (
+                Math.sqrt((y - 13) * (y - 13) + (x - 13) * (x - 13)) < 4
+              ) {
+                if (
+                  x > 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x > 13 &&
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
+                else if (
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
+                else tenemy[y * 25 + x] = enemy[y * 25 + x];
+              } else {
+                tenemy[y * 25 + x] = enemy[y * 25 + x];
+                if (Math.random() < 0.1) {
+                  if (
+                    x > 13 &&
+                    y < 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)
+                      ]
+                  )
+                    tattack[(y + 1) * 25 + x - 1] = 7;
+                  else if (
+                    x < 13 &&
+                    y > 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)
+                      ]
+                  )
+                    tattack[(y - 1) * 25 + x + 1] = 3;
+                  else if (
+                    x < 13 &&
+                    y < 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)
+                      ]
+                  )
+                    tattack[(y + 1) * 25 + x + 1] = 5;
+                  else if (
+                    x > 13 &&
+                    y > 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)
+                      ]
+                  )
+                    tattack[(y - 1) * 25 + x - 1] = 9;
+                  else if (
+                    x > 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)
+                      ]
+                  )
+                    tattack[y * 25 + x - 1] = 8;
+                  else if (
+                    x < 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)
+                      ]
+                  )
+                    tattack[y * 25 + x + 1] = 4;
+                  else if (
+                    y < 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)
+                      ]
+                  )
+                    tattack[(y + 1) * 25 + x] = 6;
+                  else if (
+                    y > 13 &&
+                    1 !=
+                      screen[
+                        ((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)
+                      ]
+                  )
+                    tattack[(y - 1) * 25 + x] = 2;
+                }
+              }
+            } else if (enemy[y * 25 + x] < 95) {
               if (
-                tenemy[(y + 1) * 25 + x - 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                x > 13 &&
+                y < 13 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
-            else if (
-              x < 12 &&
-              y > 14 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (
-                tenemy[(y - 1) * 25 + x + 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[(y + 1) * 25 + x - 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
+              else if (
+                x < 12 &&
+                y > 14 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
-            else if (
-              x < 12 &&
-              y < 12 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (
-                tenemy[(y + 1) * 25 + x + 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[(y - 1) * 25 + x + 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
+              else if (
+                x < 12 &&
+                y < 12 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
-            else if (
-              x > 14 &&
-              y > 14 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
-              if (
-                tenemy[(y - 1) * 25 + x - 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[(y + 1) * 25 + x + 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
+              else if (
+                x > 14 &&
+                y > 14 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
-            else if (
-              x > 14 &&
-              1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)]
-            )
-              if (
-                tenemy[y * 25 + x - 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[(y - 1) * 25 + x - 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
+              else if (
+                x > 14 &&
+                1 !=
+                  screen[((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
-            else if (
-              x < 12 &&
-              1 != screen[((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)]
-            )
-              if (
-                tenemy[y * 25 + x + 1] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[y * 25 + x - 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
+              else if (
+                x < 12 &&
+                1 !=
+                  screen[((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
-            else if (
-              y < 12 &&
-              1 != screen[((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)]
-            )
-              if (
-                tenemy[(y + 1) * 25 + x] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[y * 25 + x + 1] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
+              else if (
+                y < 12 &&
+                1 !=
+                  screen[((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
-            else if (
-              y > 14 &&
-              1 != screen[((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)]
-            )
-              if (
-                tenemy[(y - 1) * 25 + x] < 95 &&
-                enemy[(y + 1) * 25 + x - 1] > 34
+                if (
+                  tenemy[(y + 1) * 25 + x] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
+              else if (
+                y > 14 &&
+                1 !=
+                  screen[((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)]
               )
-                tenemy[y * 25 + x] = 96;
-              else tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
-            else tenemy[y * 25 + x] = enemy[y * 25 + x] + 62;
-          } else if (enemy[y * 25 + x] < 157) {
-            if (Math.random() < 0.1) {
-              tenemy[y * 25 + x] = enemy[y * 25 + x] - 62;
-              tattack[(y + 1) * 25 + x - 1] = 18;
-              tattack[(y + 1) * 25 + x] = 18;
-              tattack[(y + 1) * 25 + x + 1] = 18;
-              tattack[y * 25 + x + 1] = 18;
-              tattack[y * 25 + x - 1] = 18;
-              tattack[(y - 1) * 25 + x - 1] = 18;
-              tattack[(y - 1) * 25 + x + 1] = 18;
-              tattack[(y - 1) * 25 + x] = 18;
-            } else {
-              tenemy[y * 25 + x] = enemy[y * 25 + x];
+                if (
+                  tenemy[(y - 1) * 25 + x] < 95 &&
+                  enemy[(y + 1) * 25 + x - 1] > 34
+                )
+                  tenemy[y * 25 + x] = 96;
+                else tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
+              else tenemy[y * 25 + x] = enemy[y * 25 + x] + 62;
+            } else if (enemy[y * 25 + x] < 157) {
+              if (Math.random() < 0.1) {
+                tattack[(y + 1) * 25 + x - 1] = 18;
+                tattack[(y + 1) * 25 + x] = 18;
+                tattack[(y + 1) * 25 + x + 1] = 18;
+                tattack[y * 25 + x + 1] = 18;
+                tattack[y * 25 + x - 1] = 18;
+                tattack[(y - 1) * 25 + x - 1] = 18;
+                tattack[(y - 1) * 25 + x + 1] = 18;
+                tattack[(y - 1) * 25 + x] = 18;
+              } else {
+                tenemy[y * 25 + x] = enemy[y * 25 + x];
+              }
+            } else if (enemy[y * 25 + x] < 187) {
+              if (Math.sqrt((y - 13) * (y - 13) + (x - 13) * (x - 13)) > 9) {
+                if (
+                  x > 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  y < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x > 14 &&
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  y < 12 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
+                else if (
+                  y > 14 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
+                else tenemy[y * 25 + x] = enemy[y * 25 + x];
+              } else if (attack[y * 25 + x]) {
+                if (
+                  x > 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  x > 13 &&
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 188) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x + 1] = enemy[y * 25 + x];
+                else if (
+                  x < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 187) % 200) * 200 + ((x + Px + 186) % 200)
+                    ]
+                )
+                  tenemy[y * 25 + x - 1] = enemy[y * 25 + x];
+                else if (
+                  y < 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 186) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y - 1) * 25 + x] = enemy[y * 25 + x];
+                else if (
+                  y > 13 &&
+                  1 !=
+                    screen[
+                      ((y + Py + 188) % 200) * 200 + ((x + Px + 187) % 200)
+                    ]
+                )
+                  tenemy[(y + 1) * 25 + x] = enemy[y * 25 + x];
+                else tenemy[y * 25 + x] = enemy[y * 25 + x];
+              } else {
+                tenemy[y * 25 + x] = enemy[y * 25 + x];
+                if (Math.random() < 0.05) {
+                  let nx = 0;
+                  let ny = 0;
+                  if (Math.random() < 0.5) {
+                    nx = 2 * (Math.round(Math.random()) - 0.5);
+                    ny = Math.floor(Math.random() * 3 - 1);
+                  } else {
+                    ny = 2 * (Math.round(Math.random()) - 0.5);
+                    nx = Math.floor(Math.random() * 3 - 1);
+                  }
+                  while (
+                    screen[
+                      ((ny + Py + 187) % 200) * 200 + ((nx + Px + 187) % 200)
+                    ]
+                  ) {
+                    if (Math.random() < 0.5) {
+                      nx = 2 * (Math.round(Math.random()) - 0.5) + x;
+                      ny = Math.floor(Math.random() * 3 - 1) + y;
+                    } else {
+                      ny = 2 * (Math.round(Math.random()) - 0.5) + y;
+                      nx = Math.floor(Math.random() * 3 - 1) + x;
+                    }
+                  }
+                  if (Math.random() < 0.2) tenemy[ny * 25 + nx] = 94;
+                  else tenemy[ny * 25 + nx] = Math.round(Math.random()) * 2 + 1;
+                }
+              }
             }
           }
         }
@@ -1173,6 +1838,7 @@ function level() {
       enemies = 0;
       for (let i = 0; i < 625; i++) {
         attack[i] = tattack[i];
+        tattack[i] = 0;
         enemy[i] = tenemy[i];
         tenemy[i] = 0;
         if (enemy[i]) enemies++;
@@ -1456,6 +2122,30 @@ function level() {
               20,
               20
             );
+          } else if (enemy[(y + 3) * 25 + (x + 3)] < 187) {
+            ctx.drawImage(
+              document.getElementById("sprite"),
+              0,
+              60,
+              20,
+              20,
+              20 * x,
+              20 * y,
+              20,
+              20
+            );
+          } else if (enemy[(y + 3) * 25 + (x + 3)] == 187) {
+            ctx.drawImage(
+              document.getElementById("sprite"),
+              20,
+              60,
+              20,
+              20,
+              20 * x,
+              20 * y,
+              20,
+              20
+            );
           }
         } else if (
           1 == screen[((y + Py + 190) % 200) * 200 + ((x + Px + 190) % 200)]
@@ -1512,11 +2202,24 @@ function level() {
             );
           }
         }
-        if (attack[(y + 3) * 25 + (x + 3)]) {
+        if (block && y > 8 && x > 8 && y < 12 && x < 12) {
+          ctx.fillStyle = "#32dbf163";
+          ctx.fillRect(20 * x, 20 * y, 20, 20);
+        } else if (attack[(y + 3) * 25 + (x + 3)]) {
           ctx.fillStyle = "#b6050563";
           ctx.fillRect(20 * x, 20 * y, 20, 20);
         }
       }
+    }
+    if (dif == 2) {
+      ctx.fillStyle = "#0000004b";
+      ctx.fillRect(0, 0, 400, 400);
+    } else if (dif == 1) {
+      ctx.fillStyle = "#0000001a";
+      ctx.fillRect(0, 0, 400, 400);
+    } else {
+      ctx.fillStyle = "#b3b2b204";
+      ctx.fillRect(0, 0, 400, 400);
     }
     ctx.closePath();
   }
