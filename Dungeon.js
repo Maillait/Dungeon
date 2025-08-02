@@ -373,6 +373,7 @@ function level() {
   let enemy = [];
   let attack = [];
   let enemies = 0;
+  let frame = 0;
 
   let u = 0;
   let d = 0;
@@ -412,6 +413,7 @@ function level() {
     if (event.key == "ArrowLeft") l = 0;
     if (event.key == "1") a1 = 0;
     if (event.key == "2") a2 = 0;
+    if (event.key == "q") hp = 0;
   });
 
   function step() {
@@ -461,18 +463,19 @@ function level() {
       error = 0;
       drawDungeon();
     }
+    if (hp == 0) {
+      losthp();
+    }
     let tenemy = [];
     let tattack = [];
     cool1--;
     cool2--;
+    frame++;
     if (!block) {
       if (attack[13 * 25 + 13] > 14) {
         hp -= 5 + dif * 10;
         losthp();
-      } else if (attack[13 * 25 + 13] > 9) {
-        hp -= 3 + dif * 3;
-        losthp();
-      } else if (attack[13 * 25 + 13] > 1) {
+      } else if (attack[13 * 25 + 13] > 1 && attack[13 * 25 + 13] < 10) {
         hp -= 2 + dif * 2;
         losthp();
       }
@@ -747,9 +750,27 @@ function level() {
         if (screen[Py * 200 + Px] == 4) {
           screen[Py * 200 + Px] = 0;
           free++;
-          if (free >= 50) dif = 2;
-          else if (free >= 20) dif = 1;
-          else dif = 0;
+          if (free == 50) {
+            dif = 2;
+            frame = -10;
+            drawDungeon();
+            for (let i = 0; i < 625; i++) {
+              attack[i] = 0;
+              enemy[i] = 0;
+              tattack[i] = 0;
+              tenemy[i] = 0;
+            }
+          } else if (free == 20) {
+            dif = 1;
+            frame = -10;
+            drawDungeon();
+            for (let i = 0; i < 625; i++) {
+              attack[i] = 0;
+              enemy[i] = 0;
+              tattack[i] = 0;
+              tenemy[i] = 0;
+            }
+          } else dif = 0;
           if (free >= 100) {
             free = 100;
             boss = 1;
@@ -830,10 +851,13 @@ function level() {
                 tattack[(13 + d - u) * 25 + 13] = dir + 2;
               }
             }
-          } else if (attack1 == 2 && u + d < 2 && r + l < 2 && u + d + l + r) {
+          } else if (attack1 == 2 && u + d < 2 && r + l < 2 && upSpell) {
             cool1 = 20 - Math.floor(upSpell / 6) * 10;
             for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
-              if (i == Math.floor(upSpell / 4) || upSpell < 6) {
+              if (
+                (i == Math.floor(upSpell / 4) || upSpell < 6) &&
+                u + d + l + r
+              ) {
                 nu = u;
                 nd = d;
                 nl = l;
@@ -935,7 +959,7 @@ function level() {
         if (a2 && cool2 <= 0 && !block) {
           if (attack2 == 0 && u + d < 2 && r + l < 2 && u + d + l + r) {
             tattack[(13 - u + d) * 25 + (13 - l + r)] = 1;
-            cool2 = 20 - Math.floor(upSpell / 6) * 10;
+            cool2 = 2;
           } else if (attack2 == 1 && u + d < 2 && r + l < 2 && u + d + l + r) {
             if (upGun < 6) {
               cool2 = 3;
@@ -953,10 +977,13 @@ function level() {
                 tattack[(13 + d - u) * 25 + 13] = dir + 2;
               }
             }
-          } else if (attack2 == 2 && u + d < 2 && r + l < 2 && u + d + l + r) {
-            cool2 = 20;
+          } else if (attack2 == 2 && u + d < 2 && r + l < 2 && upSpell) {
+            cool2 = 20 - Math.floor(upSpell / 6) * 10;
             for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
-              if (i == Math.floor(upSpell / 4) || upSpell < 6) {
+              if (
+                (i == Math.floor(upSpell / 4) || upSpell < 6) &&
+                u + d + l + r
+              ) {
                 nu = u;
                 nd = d;
                 nl = l;
@@ -2221,6 +2248,23 @@ function level() {
       ctx.fillStyle = "#b3b2b204";
       ctx.fillRect(0, 0, 400, 400);
     }
+    ctx.fillStyle = "#1d1d1d96";
+    ctx.fillRect(0, 0, 200, 30);
+    ctx.fillStyle = "#0fa30fff";
+    ctx.font = "bold 18px Courier New";
+    ctx.fillText("Press Q to quit", 1, 19);
+    if (frame < 0) {
+      ctx.fillStyle = "#000000ff";
+      ctx.fillRect(0, 0, 400, 400);
+    }
+    if (frame < 10) {
+      ctx.font = "bold 40px Courier New";
+      ctx.fillStyle = "#1d1d1d96";
+      ctx.fillRect(100, 175, 200, 50);
+      ctx.fillStyle = "#0fa30fff";
+      ctx.fillText("Level " + (dif + 1), 110, 210);
+    }
+    ctx.font = "bold 26px Courier New";
     ctx.closePath();
   }
 }
