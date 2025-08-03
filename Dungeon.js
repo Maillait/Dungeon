@@ -373,7 +373,7 @@ function level() {
   let enemy = [];
   let attack = [];
   let enemies = 0;
-  let frame = 0;
+  let frame = -9;
 
   let u = 0;
   let d = 0;
@@ -459,6 +459,7 @@ function level() {
         ctx.closePath();
       }
     }
+    if (frame == -10) drawDungeon();
     while (error == 1) {
       error = 0;
       drawDungeon();
@@ -752,23 +753,31 @@ function level() {
           free++;
           if (free == 50) {
             dif = 2;
-            frame = -10;
-            drawDungeon();
+            frame = -20;
             for (let i = 0; i < 625; i++) {
               attack[i] = 0;
-              enemy[i] = 0;
               tattack[i] = 0;
-              tenemy[i] = 0;
+              if (enemy[i] && enemy[i] != 3 && enemy[i] != 4) {
+                enemy[i] = 96;
+                tenemy[i] = 96;
+              } else {
+                enemy[i] = 0;
+                tenemy[i] = 0;
+              }
             }
           } else if (free == 20) {
             dif = 1;
-            frame = -10;
-            drawDungeon();
+            frame = -20;
             for (let i = 0; i < 625; i++) {
               attack[i] = 0;
-              enemy[i] = 0;
               tattack[i] = 0;
-              tenemy[i] = 0;
+              if (enemy[i] && enemy[i] != 3 && enemy[i] != 4) {
+                enemy[i] = 96;
+                tenemy[i] = 96;
+              } else {
+                enemy[i] = 0;
+                tenemy[i] = 0;
+              }
             }
           } else dif = 0;
           if (free >= 100) {
@@ -1989,6 +1998,7 @@ function level() {
       }
     }
     ctx.closePath();
+    draw();
   }
 
   function draw() {
@@ -2126,17 +2136,30 @@ function level() {
               20
             );
           } else if (enemy[(y + 3) * 25 + (x + 3)] < 97) {
-            ctx.drawImage(
-              document.getElementById("sprite"),
-              120,
-              40,
-              20,
-              20,
-              20 * x,
-              20 * y,
-              20,
-              20
-            );
+            if (frame > 0)
+              ctx.drawImage(
+                document.getElementById("sprite"),
+                120,
+                40,
+                20,
+                20,
+                20 * x,
+                20 * y,
+                20,
+                20
+              );
+            else
+              ctx.drawImage(
+                document.getElementById("sprite"),
+                140,
+                0,
+                20,
+                20,
+                20 * x,
+                20 * y,
+                20,
+                20
+              );
           } else if (enemy[(y + 3) * 25 + (x + 3)] < 157) {
             ctx.drawImage(
               document.getElementById("sprite"),
@@ -2253,16 +2276,19 @@ function level() {
     ctx.fillStyle = "#0fa30fff";
     ctx.font = "bold 18px Courier New";
     ctx.fillText("Press Q to quit", 1, 19);
-    if (frame < 0) {
-      ctx.fillStyle = "#000000ff";
+    if (frame < -10) {
+      ctx.fillStyle = `rgba(0,0,0,${10 * (frame + 20)}%)`;
       ctx.fillRect(0, 0, 400, 400);
-    }
-    if (frame < 10) {
-      ctx.font = "bold 40px Courier New";
-      ctx.fillStyle = "#1d1d1d96";
-      ctx.fillRect(100, 175, 200, 50);
-      ctx.fillStyle = "#0fa30fff";
-      ctx.fillText("Level " + (dif + 1), 110, 210);
+    } else {
+      if (frame < 0) {
+        ctx.fillStyle = "#000000ff";
+        ctx.fillRect(0, 0, 400, 400);
+        ctx.font = "bold 40px Courier New";
+        ctx.fillStyle = "#1d1d1d96";
+        ctx.fillRect(100, 175, 200, 50);
+        ctx.fillStyle = "#0fa30fff";
+        ctx.fillText("Level " + (dif + 1), 110, 210);
+      }
     }
     ctx.font = "bold 26px Courier New";
     ctx.closePath();
