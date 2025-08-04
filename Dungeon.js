@@ -12,6 +12,7 @@ let upGun = 1;
 let upSpell = 0;
 let upHeal = 0;
 let upSheild = 0;
+let tutorial = 0;
 const plot = document.getElementById("plot");
 const ctx = plot.getContext("2d");
 drawMenu();
@@ -22,13 +23,28 @@ addEventListener("mousemove", (event) => {
 });
 
 addEventListener("mousedown", (event) => {
-  if (inmenu == 1 && mx > 145 && my > 245 && mx < 455 && my < 345) {
-    inmenu = 0;
-    artifacts = 0;
-    maxhp = 20;
-    hp = maxhp;
-    select = 0;
-    level();
+  if (inmenu == 3) {
+    if (mx > 150 && my > 300 && mx < 250 && my < 350) {
+      shop();
+    }
+  } else if (inmenu == 1) {
+    if (mx > 145 && my > 225 && mx < 455 && my < 295) {
+      inmenu = 0;
+      artifacts = 0;
+      maxhp = 20;
+      hp = maxhp;
+      select = 0;
+      tutorial = 0;
+      level();
+    } else if (mx > 145 && my > 315 && mx < 455 && my < 385) {
+      inmenu = 0;
+      artifacts = 0;
+      maxhp = 20;
+      hp = maxhp;
+      select = 0;
+      tutorial = 1;
+      level();
+    }
   } else if (inmenu == 2) {
     if (mx > 525 && my > 5 && mx < 595 && my < 45) {
       drawMenu();
@@ -128,8 +144,8 @@ addEventListener("mousedown", (event) => {
         alert("too pricy or sold out");
       }
     } else if (mx > 244 && my > 230 && mx < 344 && my < 280) {
-      if (artifacts >= 10 && !upSheild) {
-        artifacts -= 10;
+      if (artifacts >= 20 && !upSheild) {
+        artifacts -= 20;
         upSheild++;
         ctx.beginPath();
         ctx.fillStyle = "#7a736fff";
@@ -147,12 +163,30 @@ addEventListener("mousedown", (event) => {
     } else if (mx > 400 && my > 110 && mx < 500 && my < 160) {
       select = 1;
       ctx.beginPath();
+      ctx.font = "bold 20px Georgia";
+      if (tutorial < 6 && tutorial) {
+        tutorial = 6;
+        ctx.fillStyle = "#1d1d1dff";
+        ctx.fillRect(220, 5, 300, 90);
+        ctx.fillStyle = "#0fa30fff";
+        ctx.fillText("Then press a key from 1-5", 230, 40);
+        ctx.fillText("to choose what item.", 230, 80);
+      }
       ctx.fillStyle = "#98a7a3ff";
       ctx.fillRect(400, 160, 100, 25);
       ctx.closePath();
     } else if (mx > 400 && my > 230 && mx < 500 && my < 280) {
       select = 2;
       ctx.beginPath();
+      ctx.font = "bold 20px Georgia";
+      if (tutorial < 6 && tutorial) {
+        tutorial = 6;
+        ctx.fillStyle = "#1d1d1dff";
+        ctx.fillRect(220, 5, 300, 90);
+        ctx.fillStyle = "#0fa30fff";
+        ctx.fillText("Then press a key from 1-5", 230, 40);
+        ctx.fillText("to choose what item.", 230, 80);
+      }
       ctx.fillStyle = "#98a7a3ff";
       ctx.fillRect(400, 280, 100, 25);
       ctx.closePath();
@@ -190,6 +224,15 @@ addEventListener("keypress", (event) => {
     }
     if (check) {
       ctx.beginPath();
+      ctx.font = "bold 20px Georgia";
+      if (tutorial) {
+        tutorial = 0;
+        ctx.fillStyle = "#1d1d1dff";
+        ctx.fillRect(220, 5, 300, 90);
+        ctx.fillStyle = "#0fa30fff";
+        ctx.fillText("To win, collect 100 free", 230, 40);
+        ctx.fillText("points, and beat the boss.", 230, 80);
+      }
       ctx.fillStyle = "#000000ff";
       if (select == 1) {
         if (attack1 == 0) ctx.fillText("Chop", 415, 180);
@@ -212,6 +255,15 @@ addEventListener("keypress", (event) => {
 
 function sold() {
   ctx.beginPath();
+  ctx.font = "bold 20px Georgia";
+  if (tutorial < 5 && tutorial) {
+    tutorial = 5;
+    ctx.fillStyle = "#1d1d1dff";
+    ctx.fillRect(220, 5, 300, 90);
+    ctx.fillStyle = "#0fa30fff";
+    ctx.fillText("To select weapons, first", 230, 40);
+    ctx.fillText("click on slot 1 or 2.", 230, 80);
+  }
   ctx.fillStyle = "#98a7a3ff";
   ctx.fillRect(25, 345, 130, 35);
   ctx.fillStyle = "#000000ff";
@@ -237,6 +289,16 @@ function shop() {
         20
       );
     }
+  }
+  ctx.font = "bold 20px Georgia";
+  if (tutorial < 4 && tutorial) {
+    tutorial = 4;
+    artifacts = 20;
+    ctx.fillStyle = "#1d1d1dff";
+    ctx.fillRect(220, 5, 300, 90);
+    ctx.fillStyle = "#0fa30fff";
+    ctx.fillText("To buy stuff, press on the", 230, 40);
+    ctx.fillText("rectangles with $ signs.", 230, 80);
   }
   ctx.fillStyle = "#000000ff";
   ctx.fillRect(5, 5, 210, 90);
@@ -338,31 +400,22 @@ function drawMenu() {
   }
   ctx.fillStyle = "#000000ff";
   ctx.fillRect(95, 45, 410, 160);
-  ctx.fillRect(145, 245, 310, 100);
+  ctx.fillRect(145, 225, 310, 70);
+  ctx.fillRect(145, 315, 310, 70);
   ctx.fillStyle = "#98a7a3ff";
   ctx.fillRect(100, 50, 400, 150);
-  ctx.fillRect(150, 250, 300, 90);
+  ctx.fillRect(150, 230, 300, 60);
+  ctx.fillRect(150, 320, 300, 60);
   ctx.font = "bold 70px Georgia";
   ctx.fillStyle = "#000000ff";
   ctx.fillText("Dungeon", 130, 140);
   ctx.font = "bold 20px Georgia";
   ctx.fillText("by Maillait", 140, 170);
-  ctx.font = "bold 50px Georgia";
-  ctx.fillText("Play", 240, 310);
+  ctx.font = "bold 40px Georgia";
+  ctx.fillText("Play", 250, 275);
+  ctx.fillText("Tutorial", 210, 365);
   ctx.closePath();
   inmenu = 1;
-}
-
-function victory() {
-  alert(
-    "You got to the end of the beta!!\nkeep on playing for as long as you wish...\n(all abilities are maxed out)"
-  );
-  upBlock = 1;
-  maxhp = 180;
-  upGun = 12;
-  upPunch = 10;
-  upSpell = 12;
-  upHeal = 10;
 }
 
 function level() {
@@ -416,6 +469,27 @@ function level() {
     if (event.key == "q") hp = 0;
   });
 
+  function runEnd() {
+    inmenu = 3;
+    ctx.beginPath();
+    ctx.fillStyle = "#000000ff";
+    ctx.fillRect(100, 140, 200, 150);
+    ctx.fillRect(150, 300, 100, 50);
+    ctx.fillStyle = "#00000093";
+    ctx.fillRect(0, 0, 400, 400);
+    ctx.fillStyle = "#98a7a3ff";
+    ctx.fillRect(105, 145, 190, 140);
+    ctx.fillRect(155, 305, 90, 40);
+    ctx.fillStyle = "#000000ff";
+    ctx.fontStyle = "bold 40px Georgia";
+    ctx.fillText("Captured", 110, 170);
+    ctx.fillText("Gems:" + (artifacts - free), 120, 210);
+    ctx.fillText("Free:" + free, 120, 240);
+    ctx.fillText("$ :" + artifacts, 120, 270);
+    ctx.fillText("Shop", 165, 330);
+    ctx.closePath();
+  }
+
   function step() {
     let tu = 0;
     let td = 0;
@@ -444,20 +518,19 @@ function level() {
           upSpell = 12;
           upHeal = 10;
         }
-        shop();
-      } else {
-        ctx.beginPath();
-        ctx.fillStyle = "#000000ff";
-        ctx.fillRect(422, 250, 200, 30);
-        ctx.fillRect(400, 280, 200, 30);
-        ctx.fillStyle = "#11d100ff";
-        ctx.fillText("Hp :" + hp, 430, 280);
-        ctx.fillStyle = "#9bb1c48f";
-        ctx.fillRect(408, 296, 184, 14);
-        ctx.fillStyle = "#d10000ff";
-        ctx.fillRect(410, 298, (180 * hp) / maxhp, 10);
-        ctx.closePath();
+        runEnd();
       }
+      ctx.beginPath();
+      ctx.fillStyle = "#000000ff";
+      ctx.fillRect(422, 250, 200, 30);
+      ctx.fillRect(400, 280, 200, 30);
+      ctx.fillStyle = "#11d100ff";
+      ctx.fillText("Hp :" + hp, 430, 280);
+      ctx.fillStyle = "#9bb1c48f";
+      ctx.fillRect(408, 296, 184, 14);
+      ctx.fillStyle = "#d10000ff";
+      ctx.fillRect(410, 298, (180 * hp) / maxhp, 10);
+      ctx.closePath();
     }
     if (frame == -10) drawDungeon();
     while (error == 1) {
@@ -466,6 +539,10 @@ function level() {
     }
     if (hp == 0) {
       losthp();
+    }
+    if (tutorial) {
+      if (tutorial == 1 && u + d + l + r) tutorial = 2;
+      else if (tutorial <= 2 && u + d + l + r && a1 + a2) tutorial = 3;
     }
     let tenemy = [];
     let tattack = [];
@@ -779,7 +856,7 @@ function level() {
                 tenemy[i] = 0;
               }
             }
-          } else dif = 0;
+          } else if (free < 20) dif = 0;
           if (free >= 100) {
             free = 100;
             boss = 1;
@@ -836,31 +913,94 @@ function level() {
         } else if (r) {
           dir = 2;
         }
+        let nl = 0;
+        let nr = 0;
+        let nu = 0;
+        let nd = 0;
+        if (u + d + l + r) {
+          if (u && l) {
+            dir = 7;
+            nu = 1;
+            nl = 1;
+          } else if (u && r) {
+            dir = 1;
+            nu = 1;
+            nr = 1;
+          } else if (d && l) {
+            dir = 5;
+            nd = 1;
+            nl = 1;
+          } else if (d && r) {
+            dir = 3;
+            nd = 1;
+            nr = 1;
+          } else if (u) {
+            dir = 0;
+            nu = 1;
+          } else if (l) {
+            dir = 6;
+            nl = 1;
+          } else if (d) {
+            dir = 4;
+            nd = 1;
+          } else if (r) {
+            dir = 2;
+            nr = 1;
+          }
+        } else {
+          if (dir == 7) {
+            nu = 1;
+            nl = 1;
+          } else if (dir == 1) {
+            nu = 1;
+            nr = 1;
+          } else if (dir == 5) {
+            nd = 1;
+            nl = 1;
+          } else if (dir == 3) {
+            nd = 1;
+            nr = 1;
+          } else if (dir == 0) {
+            nu = 1;
+          } else if (dir == 6) {
+            nl = 1;
+          } else if (dir == 4) {
+            nd = 1;
+          } else if (dir == 2) {
+            nr = 1;
+          }
+        }
         for (let i = 0; i < 625; i++) {
           tattack[i] = 0;
         }
-        if (a1 && cool1 <= 0 && !block) {
-          if (attack1 == 0 && u + d < 2 && r + l < 2 && u + d + l + r) {
-            tattack[(13 - u + d) * 25 + (13 - l + r)] = 1;
+        if (a1 && cool1 <= 0) {
+          if (attack1 == 0 && nu + nd < 2 && nr + nl < 2 && !block) {
+            tattack[(13 - nu + nd) * 25 + (13 - nl + nr)] = 1;
             cool1 = 2;
-          } else if (attack1 == 1 && u + d < 2 && r + l < 2 && u + d + l + r) {
+          } else if (attack1 == 1 && nu + nd < 2 && nr + nl < 2 && !block) {
             if (upGun < 6) {
-              cool2 = 3;
+              cool1 = 3;
             }
-            tattack[(13 + d - u) * 25 + (13 + r - l)] = dir + 2;
+            tattack[(13 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
             if (upGun >= 12) {
-              if (u + d == 1 && l + r == 0) {
-                tattack[(13 + d - u) * 25 + (12 + r - l)] = dir + 2;
-                tattack[(13 + d - u) * 25 + (14 + r - l)] = dir + 2;
-              } else if (l + r == 1 && u + d == 0) {
-                tattack[(12 + d - u) * 25 + (13 + r - l)] = dir + 2;
-                tattack[(14 + d - u) * 25 + (13 + r - l)] = dir + 2;
+              if (nu + nd == 1 && nl + nr == 0) {
+                tattack[(13 + nd - nu) * 25 + (12 + nr - nl)] = dir + 2;
+                tattack[(13 + nd - nu) * 25 + (14 + nr - nl)] = dir + 2;
+              } else if (nl + nr == 1 && nu + nd == 0) {
+                tattack[(12 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
+                tattack[(14 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
               } else {
-                tattack[13 * 25 + (13 + r - l)] = dir + 2;
-                tattack[(13 + d - u) * 25 + 13] = dir + 2;
+                tattack[13 * 25 + (13 + nr - nl)] = dir + 2;
+                tattack[(13 + nd - nu) * 25 + 13] = dir + 2;
               }
             }
-          } else if (attack1 == 2 && u + d < 2 && r + l < 2 && upSpell) {
+          } else if (
+            attack1 == 2 &&
+            u + d < 2 &&
+            r + l < 2 &&
+            upSpell &&
+            !block
+          ) {
             cool1 = 20 - Math.floor(upSpell / 6) * 10;
             for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
               if (
@@ -946,7 +1086,7 @@ function level() {
                 ] = 14;
               }
             }
-          } else if (attack1 == 3) {
+          } else if (attack1 == 3 && !block) {
             hp += upHeal;
             if (hp > maxhp) hp = maxhp;
             cool1 = 50;
@@ -964,29 +1104,34 @@ function level() {
             if (enemy[13 * 25 + 13] < 5) enemy[13 * 25 + 13] = 0;
             block = 1;
           }
-        }
-        if (a2 && cool2 <= 0 && !block) {
-          if (attack2 == 0 && u + d < 2 && r + l < 2 && u + d + l + r) {
-            tattack[(13 - u + d) * 25 + (13 - l + r)] = 1;
+        } else if (a2 && cool2 <= 0) {
+          if (attack2 == 0 && nu + nd < 2 && nr + nl < 2 && !block) {
+            tattack[(13 - nu + nd) * 25 + (13 - nl + nr)] = 1;
             cool2 = 2;
-          } else if (attack2 == 1 && u + d < 2 && r + l < 2 && u + d + l + r) {
+          } else if (attack2 == 1 && nu + nd < 2 && nr + nl < 2 && !block) {
             if (upGun < 6) {
               cool2 = 3;
             }
-            tattack[(13 + d - u) * 25 + (13 + r - l)] = dir + 2;
+            tattack[(13 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
             if (upGun >= 12) {
-              if (u + d == 1 && l + r == 0) {
-                tattack[(13 + d - u) * 25 + (12 + r - l)] = dir + 2;
-                tattack[(13 + d - u) * 25 + (14 + r - l)] = dir + 2;
-              } else if (l + r == 1 && u + d == 0) {
-                tattack[(12 + d - u) * 25 + (13 + r - l)] = dir + 2;
-                tattack[(14 + d - u) * 25 + (13 + r - l)] = dir + 2;
+              if (nu + nd == 1 && nl + nr == 0) {
+                tattack[(13 + nd - nu) * 25 + (12 + nr - nl)] = dir + 2;
+                tattack[(13 + nd - nu) * 25 + (14 + nr - nl)] = dir + 2;
+              } else if (nl + nr == 1 && nu + nd == 0) {
+                tattack[(12 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
+                tattack[(14 + nd - nu) * 25 + (13 + nr - nl)] = dir + 2;
               } else {
-                tattack[13 * 25 + (13 + r - l)] = dir + 2;
-                tattack[(13 + d - u) * 25 + 13] = dir + 2;
+                tattack[13 * 25 + (13 + nr - nl)] = dir + 2;
+                tattack[(13 + nd - nu) * 25 + 13] = dir + 2;
               }
             }
-          } else if (attack2 == 2 && u + d < 2 && r + l < 2 && upSpell) {
+          } else if (
+            attack2 == 2 &&
+            u + d < 2 &&
+            r + l < 2 &&
+            upSpell &&
+            !block
+          ) {
             cool2 = 20 - Math.floor(upSpell / 6) * 10;
             for (let i = Math.floor(upSpell / 4) + 1; i > 0; i--) {
               if (
@@ -1072,7 +1217,7 @@ function level() {
                 ] = 14;
               }
             }
-          } else if (attack2 == 3) {
+          } else if (attack2 == 3 && !block) {
             hp += upHeal;
             if (hp > maxhp) hp = maxhp;
             cool2 = 50;
@@ -2271,11 +2416,6 @@ function level() {
       ctx.fillStyle = "#b3b2b204";
       ctx.fillRect(0, 0, 400, 400);
     }
-    ctx.fillStyle = "#1d1d1d96";
-    ctx.fillRect(0, 0, 200, 30);
-    ctx.fillStyle = "#0fa30fff";
-    ctx.font = "bold 18px Courier New";
-    ctx.fillText("Press Q to quit", 1, 19);
     if (frame < -10) {
       ctx.fillStyle = `rgba(0,0,0,${10 * (frame + 20)}%)`;
       ctx.fillRect(0, 0, 400, 400);
@@ -2288,6 +2428,27 @@ function level() {
         ctx.fillRect(100, 175, 200, 50);
         ctx.fillStyle = "#0fa30fff";
         ctx.fillText("Level " + (dif + 1), 110, 210);
+      }
+    }
+    ctx.fillStyle = "#1d1d1d96";
+    ctx.fillRect(0, 0, 200, 30);
+    ctx.fillStyle = "#0fa30fff";
+    ctx.font = "bold 18px Courier New";
+    ctx.fillText("Press Q to quit", 1, 19);
+    if (tutorial) {
+      ctx.fillStyle = "#1d1d1d96";
+      ctx.fillRect(0, 30, 270, 30);
+      ctx.fillRect(5, 300, 390, 95);
+      ctx.fillStyle = "#0fa30fff";
+      ctx.fillText("Welcome to the tutorial", 1, 49);
+      if (tutorial == 1) {
+        ctx.fillText("Use the arrow keys to move.", 15, 355);
+      } else if (tutorial == 2) {
+        ctx.fillText("Use the arrow keys as well as 1 or", 10, 340);
+        ctx.fillText("2 to attack.", 10, 370);
+      } else {
+        ctx.fillText("To get to the shop, press Q or wait", 10, 340);
+        ctx.fillText("till you die.", 10, 370);
       }
     }
     ctx.font = "bold 26px Courier New";
