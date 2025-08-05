@@ -15,6 +15,8 @@ let upSheild = 0;
 let tutorial = 0;
 const plot = document.getElementById("plot");
 const ctx = plot.getContext("2d");
+
+while (!sprite.complete);
 drawMenu();
 
 addEventListener("mousemove", (event) => {
